@@ -1,13 +1,13 @@
 let Sequelize = require('../../../db');
 const Op = Sequelize.Op;
-const userModel = require('../../models/user'); // ---- user service
+const gameModel = require('../../models/gameModel'); // ---- game service
 
 
-let userService = {
-    // Add user
-    addUser: (userDetail) => {
+let gameService = {
+    // Add game
+    addUser: (gameDetail) => {
         return new Promise((resolve, reject) => {
-            userModel.UserSchema.create(userDetail).then(function (data) { //------ successfully created
+            gameModel.gameSchema.create(gameDetail).then(function (data) { //------ successfully created
                 resolve(data);
             }).catch(err => {
                 reject(err);
@@ -15,10 +15,10 @@ let userService = {
         });
     },
 
-    // update user
+    // update game
     updateUser: (updateData, condition) => {
         return new Promise((resolve, reject) => {
-            userModel.UserSchema.update(updateData, {
+            gameModel.gameSchema.update(updateData, {
                 where: condition
             }).then(function (data) {
                 resolve(data);
@@ -32,7 +32,7 @@ let userService = {
     // Find single row
     findUser: (condition) => {
         return new Promise((resolve, reject) => {
-            userModel.UserSchema.findOne({
+            gameModel.gameSchema.findOne({
                 where: condition,
             }).then(function (data) {
                 resolve(data);
@@ -46,9 +46,9 @@ let userService = {
     // Find multiple rows
     findMultipleUser: (condition) => {
         return new Promise((resolve, reject) => {
-            userModel.UserSchema.findAll({
+            gameModel.gameSchema.findAll({
                 attributes: {
-                    exclude: ["user_password"]
+                    exclude: ["game_password"]
                 },
                 where: condition,
             }).then(function (data) {
@@ -63,9 +63,9 @@ let userService = {
     // Find multiple rows by simple limit paging
     findUserByPaging: (condition, order, limit) => {
         return new Promise((resolve, reject) => {
-            userModel.UserSchema.findAll({
+            gameModel.gameSchema.findAll({
                 attributes: {
-                    exclude: ["user_password"]
+                    exclude: ["game_password"]
                 },
                 where: condition,
                 order: order,
@@ -82,7 +82,7 @@ let userService = {
     // Delete rows
     deleteUser: (condition) => {
         return new Promise((resolve, reject) => {
-            userModel.UserSchema.destroy({
+            gameModel.gameSchema.destroy({
                 where: condition
             }).then(function (data) {
                 resolve(data);
@@ -95,7 +95,7 @@ let userService = {
     // Delete rows
     getMultipleColor: (condition) => {
         return new Promise((resolve, reject) => {
-            userModel.colorSchema
+            gameModel.colorSchema
                 .findAll({
                     where: condition,
                 }).then(function (data) {
@@ -107,10 +107,10 @@ let userService = {
         });
     },
 
-    // Get count of user
+    // Get count of game
     getOnBoardCountUser: () => {
         return new Promise((resolve, reject) => {
-            Sequelize.query("SELECT (SELECT COUNT(*) FROM tbl_user WHERE DATE(user_created_on) > (NOW() - INTERVAL 7 DAY))as seven_days,(SELECT COUNT(*) FROM tbl_user WHERE DATE(user_created_on) > (NOW() - INTERVAL 1 DAY)) as today_user ,(SELECT COUNT(*) FROM tbl_user) as total_user", { // raw query for plain object 
+            Sequelize.query("SELECT (SELECT COUNT(*) FROM tbl_game WHERE DATE(game_created_on) > (NOW() - INTERVAL 7 DAY))as seven_days,(SELECT COUNT(*) FROM tbl_game WHERE DATE(game_created_on) > (NOW() - INTERVAL 1 DAY)) as today_game ,(SELECT COUNT(*) FROM tbl_game) as total_game", { // raw query for plain object 
                 replacements: [],
                 type: Sequelize.QueryTypes.SELECT
                 //-- default sucess meassge 
@@ -123,4 +123,4 @@ let userService = {
     },
 };
 
-module.exports = userService; // Get method global
+module.exports = gameService; // Get method global

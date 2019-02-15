@@ -8,9 +8,9 @@ let app = express();
 let appConstants = require('./config').appConstants;
 let routes = require('./app/routes');
 
-//----------------------- use cors globaly --------------------
+// -------------------- use cors globaly --------------------
 app.use(cors());
-//-------------------------------------------------------------
+// ------------------------------------------------------------
 // Body parser middleware
 app.use(bodyParser.json({
     limit: appConstants.bodyLimit

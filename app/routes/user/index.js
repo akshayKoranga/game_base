@@ -3,41 +3,49 @@ let express = require('express');
 module.exports = function users() {
 
     let api = express.Router();
+
     let userAuth = require('./controller/user_auth');
 
     // -----------------------define all dependencies -----------------
 
 
 
-    //=======================================================================================================//
-    //*
-    //*                                 Insert user (Post)
-    //*                          Desc = This Api Insert new user   
-    //========================================================================================================//
+    // ****************** Insert user ****************** */
     api.post('/:lang/register', async (req, res) => {
-        try {
-            let yoo = userAuth.addUser(0)//.then(data => {
-                // if (data) {
-                //     return res.json("yaataattatatatat");
-
-                // } else {
-                //     return res.json("npppppppppp");
-
-                // }
-                    return res.json(yoo);
-
-           // })
-        } catch (e) {
-            console.log(e)
-            return res.json("err aa gya phir ab kya kaare bawas");
-
-            console.log(e);
-            let statusCode = new constants.response().SERVER_ERROR;
-            return res.json(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', req.params.lang, statusCode));
-        }
+        return userAuth.addUser(req).then(data => {
+            return res.json(data);
+        }).catch(err => {
+            return res.json(err);
+        })
     });
-    //************************************* End of Register user ************************************** */
 
+
+    // ****************** Get all user ****************** */
+    api.get('/:lang/all_user', async (req, res) => {
+        return userAuth.getAllUser(req).then(data => {
+            return res.json(data);
+        }).catch(err => {
+            return res.json(err);
+        })
+    });
+
+    // ****************** update user ****************** */
+    api.put('/:lang/update_user', async (req, res) => {
+        return userAuth.updateUser(req).then(data => {
+            return res.json(data);
+        }).catch(err => {
+            return res.json(err);
+        })
+    });
+
+    // ****************** Get single user ****************** */
+    api.get('/:lang/user_profile', async (req, res) => {
+        return userAuth.userProfile(req).then(data => {
+            return res.json(data);
+        }).catch(err => {
+            return res.json(err);
+        })
+    });
 
 
 
