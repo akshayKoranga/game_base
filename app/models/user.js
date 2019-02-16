@@ -29,6 +29,16 @@
           default: ''
       },
       {
+          key: 'user_social_sign_type',
+          required: false,
+          default: 'facebook'
+      },
+      {
+          key: 'user_social_sign_id',
+          required: true,
+          default: ''
+      },
+      {
           key: 'user_device_type',
           required: false,
           default: 2
@@ -118,11 +128,10 @@
       user_long: Sequelize.DOUBLE,
       user_timezone: Sequelize.STRING,
       user_social_sign_type: Sequelize.INTEGER,
-      user_social_sign_id: Sequelize.STRING,
+      user_social_sign_id: Sequelize.ENUM('facebook','device_id'),
       user_device_type: Sequelize.ENUM('iOS', 'Android', 'Web'),
       user_device_token: Sequelize.STRING,
       user_profile_pic: Sequelize.STRING,
-      user_verification_status: Sequelize.ENUM('Not verified', 'Verified'),
       user_status: Sequelize.INTEGER,
       user_is_deleted: Sequelize.SMALLINT,
   }, {

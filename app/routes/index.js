@@ -4,11 +4,11 @@ module.exports = () => {
 
     let router = express();
     let users = require('./user');
-    //let game = require('./game');
+    let game = require('./game');
 
     // let config = require('../config');  // database connection
     router.use('/user', users());
-   // router.use('/game', game());
+    router.use('/game', game());
 
 
 

@@ -61,9 +61,9 @@ let localisedStrings = {
         en: 'This category is in review, Please try again after some time. ',
         es: 'Spanish - This category is in review, Please try again after some time.'
     },
-    'INVAILD_USER_PASSWORD': {
-        en: 'You have entered an invalid username or password. ',
-        es: 'Spanish - You have entered an invalid username or password.'
+    'INVAILD_USER_CRUD': {
+        en: 'You have entered an invalid credientils. ',
+        es: 'Spanish - You have entered an credientils.'
     },
     'NOT_EXIST_EMAIL_PHONE': {
         en: 'This email or phone number is not registered. ',

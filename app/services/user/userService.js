@@ -46,9 +46,9 @@ let userService = {
     // Find multiple rows
     findMultipleUser: (condition) => {
         return new Promise((resolve, reject) => {
-            userModel.UserSchema.findAll({
+            userModel.UserSchema.findAll({ 
                 attributes: {
-                    exclude: ["user_password"]
+                    exclude: ["user_social_sign_type", "user_social_sign_id"]
                 },
                 where: condition,
             }).then(function (data) {

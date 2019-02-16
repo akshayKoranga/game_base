@@ -11,14 +11,12 @@ let Promise = require('bluebird'),
 
     // ---------------- Middleware ------------
     request = require('../middlewares/request'),
-    // ----------------- controller -----------------
-    //userAuth = require('../routes/user/controller/user_auth'), // ---- user controller
-
     // ----------------- model -----------------
     userModel = require('../models/user'), // ---- user model
+    gameModel = require('../models/gameModel'), // ---- game model
     // ----------------- Services -----------------
-    userService = require('./user/userService'); // ---- user service
-
+    userService = require('./user/userService'), // ---- user service
+    gameService = require('./game/gameService'); // ---- game service
 //    console.log(userAuth.dummy);process.exit()
 module.exports = {
     // ------- Module -------
@@ -31,8 +29,8 @@ module.exports = {
     // ------- helper function -------
     // ------- Define models -------
     userModel,
-    // ------- Define controller -------
-   // userAuth,
+    gameModel,
     // ------- Define services -------
     userService,
+    gameService
 };

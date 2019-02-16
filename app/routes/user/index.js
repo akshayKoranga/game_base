@@ -20,6 +20,16 @@ module.exports = function users() {
     });
 
 
+    // ****************** Login user ****************** */
+    api.post('/:lang/login', async (req, res) => {
+        return userAuth.loginUser(req).then(data => {
+            return res.json(data);
+        }).catch(err => {
+            return res.json(err);
+        })
+    });
+
+
     // ****************** Get all user ****************** */
     api.get('/:lang/all_user', async (req, res) => {
         return userAuth.getAllUser(req).then(data => {
@@ -40,6 +50,15 @@ module.exports = function users() {
 
     // ****************** Get single user ****************** */
     api.get('/:lang/user_profile', async (req, res) => {
+        return userAuth.userProfile(req).then(data => {
+            return res.json(data);
+        }).catch(err => {
+            return res.json(err);
+        })
+    });
+
+    // ****************** Find user ****************** */
+    api.get('/:lang/search_profile', async (req, res) => {
         return userAuth.userProfile(req).then(data => {
             return res.json(data);
         }).catch(err => {
