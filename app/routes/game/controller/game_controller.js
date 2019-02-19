@@ -27,7 +27,7 @@ let gameController = {
             return new Promise((resolve, reject) => {
                 if (gameModel.gameValidations.validategame(body) === 1) {
                     let statusCode = new constants.response().PARAMETER_MISSING;
-                    resolve(constants.response.sendFailure('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
+                    resolve(constants.response.sendSuccess('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
                 } else {
                     // Parse req  body
                     let gameDetails = request.parseRequestBody(body, gameModel.gameParams);
@@ -37,14 +37,14 @@ let gameController = {
                     }).catch(function (err) {
                         console.log(err);
                         let statusCode = new constants.response().SERVER_ERROR;
-                        reject(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+                        reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                     });
                 }
             });
         } catch (e) {
             console.log(e);
             let statusCode = new constants.response().SERVER_ERROR;
-            return (constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+            return (constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
         }
     },
 
@@ -57,7 +57,7 @@ let gameController = {
             return new Promise((resolve, reject) => {
                 if (game_id.trim() == '') {
                     let statusCode = new constants.response().PARAMETER_MISSING;
-                    resolve(constants.response.sendFailure('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
+                    resolve(constants.response.sendSuccess('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
                 } else {
                     // Parse req  body
                     let condition = {
@@ -80,29 +80,29 @@ let gameController = {
                                     //-------------- NOt found or bad req
                                 }).catch(err => {
                                     let statusCode = new constants.response().BAD_REQUEST;
-                                    resolve(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang))
+                                    resolve(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang))
                                 })
                                 //--------------- Unable to update 
                             }).catch(function (err) {
                                 console.log(err);
                                 let statusCode = new constants.response().BAD_REQUEST;
-                                reject(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+                                reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                             });
                         } else {
                             let statusCode = new constants.response().NOT_FOUND;
-                            resolve(constants.response.sendFailure('INVAILD_USER_CRUD', statusCode, req.params.lang));
+                            resolve(constants.response.sendSuccess('INVAILD_USER_CRUD', statusCode, req.params.lang));
                         }
                     }).catch(function (err) {
                         console.log(err);
                         let statusCode = new constants.response().SERVER_ERROR;
-                        reject(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+                        reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                     });
                 }
             })
         } catch (e) {
             console.log(e);
             let statusCode = new constants.response().SERVER_ERROR;
-            return (constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+            return (constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
         }
     },
 
@@ -115,30 +115,30 @@ let gameController = {
             return new Promise((resolve, reject) => {
                 if (game_id.trim() == '') {
                     let statusCode = new constants.response().PARAMETER_MISSING;
-                    resolve(constants.response.sendFailure('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
+                    resolve(constants.response.sendSuccess('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
                 } else {
                     // Parse req  body
                     let condition = {
-                        game_id
+                        game_id 
                     };
                     gameService.findGame(condition).then(objectData => {
                         if (objectData) {
                             resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', objectData, req.params.lang));
                         } else {
                             let statusCode = new constants.response().NOT_FOUND;
-                            resolve(constants.response.sendFailure('INVAILD_USER_CRUD', statusCode, req.params.lang));
+                            resolve(constants.response.sendSuccess('INVAILD_USER_CRUD', statusCode, req.params.lang));
                         }
                     }).catch(function (err) {
                         console.log(err);
                         let statusCode = new constants.response().SERVER_ERROR;
-                        reject(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+                        reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                     });
                 }
             })
         } catch (e) {
             console.log(e);
             let statusCode = new constants.response().SERVER_ERROR;
-            return (constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+            return (constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
         }
     },
 
@@ -150,7 +150,7 @@ let gameController = {
             return new Promise((resolve, reject) => {
                 if (user_id.trim() == '') {
                     let statusCode = new constants.response().PARAMETER_MISSING;
-                    resolve(constants.response.sendFailure('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
+                    resolve(constants.response.sendSuccess('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
                 } else {
                     // Parse req  body
                     let condition = {
@@ -196,30 +196,30 @@ let gameController = {
                                     resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', gameNewArray, req.params.lang));
                                 } else {
                                     let statusCode = new constants.response().NOT_FOUND;
-                                    resolve(constants.response.sendFailure('INVAILD_USER_CRUD', statusCode, req.params.lang));
+                                    resolve(constants.response.sendSuccess('INVAILD_USER_CRUD', statusCode, req.params.lang));
                                 }
                             }).catch(function (err) {
                                 console.log(err);
                                 let statusCode = new constants.response().SERVER_ERROR;
-                                reject(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+                                reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                             });
 
                             //  resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', objectData, req.params.lang));
                         } else {
                             let statusCode = new constants.response().NOT_FOUND;
-                            resolve(constants.response.sendFailure('INVAILD_USER_CRUD', statusCode, req.params.lang));
+                            resolve(constants.response.sendSuccess('INVAILD_USER_CRUD', statusCode, req.params.lang));
                         }
                     }).catch(function (err) {
                         console.log(err);
                         let statusCode = new constants.response().SERVER_ERROR;
-                        reject(constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+                        reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                     });
                 }
             })
         } catch (e) {
             console.log(e);
             let statusCode = new constants.response().SERVER_ERROR;
-            return (constants.response.sendFailure('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
+            return (constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
         }
     }
 };
