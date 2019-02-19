@@ -1,4 +1,5 @@
 let Boom = require('boom');
+const AWS = require('aws-sdk');
 
 let localisedStrings = {
     'DEFAULT_SUCCESS_MESSAGE': {
@@ -207,18 +208,21 @@ class localiseStrings {
 }
 
 
-class userRole {
-    constructor() {
-        this.ADMIN = 1;
-        this.AGENT = 2;
-        this.MANAGER = 3;
-        this.MERCHANT = 4;
-        this.USER = 5;
-    }
-}
+let s3 = new AWS.S3({
+    accessKeyId: 'AKIAIRQ6IPGEKJMAR6BQ',
+    secretAccessKey: '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', 
+    Bucket: 'swift-spar-local/selfie_fight',
+}); // define s3 var with new AWS.S3 object
+
+let S3CONSTANT = {
+    accessKeyId: 'AKIAIRQ6IPGEKJMAR6BQ', //IAM_USER_KEY,
+    secretAccessKey: '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', //IAM_USER_SECRET,
+    Bucket: 'swift-spar-local/selfie_fight', //BUCKET_NAME,
+};
 
 
 
-module.exports.userRole = userRole;
 module.exports.response = sendResponse;
 module.exports.localise = localiseStrings;
+module.exports.S3CONSTANT = S3CONSTANT;
+module.exports.s3 = s3;

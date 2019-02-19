@@ -1,8 +1,11 @@
 let express = require('express');
 
 module.exports = function users() {
-
+    // var Upload = upload.fields([{
+    //     name: 'user_profile_pic'
+    // }]);
     let api = express.Router();
+    let upload = require('../../middleware/storage')('selfie_fight');
 
     let userAuth = require('./controller/user_auth');
 
@@ -11,7 +14,9 @@ module.exports = function users() {
 
 
     // ****************** Insert user ****************** */
-    api.post('/:lang/register', async (req, res) => {
+    api.post('/:lang/register', upload.fields([{
+        name: 'user_profile_pic'
+    }]), async (req, res) => {
         return userAuth.addUser(req).then(data => {
             return res.json(data);
         }).catch(err => {
@@ -40,7 +45,9 @@ module.exports = function users() {
     });
 
     // ****************** update user ****************** */
-    api.put('/:lang/update_user', async (req, res) => {
+    api.put('/:lang/update_user', upload.fields([{
+        name: 'user_profile_pic'
+    }]), async (req, res) => {
         return userAuth.updateUser(req).then(data => {
             return res.json(data);
         }).catch(err => {

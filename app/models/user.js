@@ -30,7 +30,7 @@
       },
       {
           key: 'user_social_sign_type',
-          required: false,
+          required: true,
           default: 'facebook'
       },
       {
