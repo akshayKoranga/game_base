@@ -30,7 +30,7 @@ module.exports = function users() {
     });
 
     // ****************** update game ****************** */
-    api.put('/:lang/update_game', async (req, res) => {
+    api.post('/:lang/update_game', async (req, res) => {
         return gameController.updateGame(req).then(data => {
             return res.json(data);
         }).catch(err => {

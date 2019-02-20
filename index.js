@@ -2,11 +2,22 @@ let express = require('express');
 require('dotenv').config({
     path: __dirname + '/.env'
 });
+let app = express();
+
+//-------------------------------------Socket Chat------------------------
+let http = require('http').Server(app);
+const ioServer = require('socket.io');
+var io = new ioServer();
+io.attach(http);
+// console.log(io);process.exit()
+// var http = require('http').Server(app);
+// const io = require('socket.io')(http);
+let routes = require('./app/routes')(io);
+// let socketgame = require('./app/routes/socketgame.js')(io);
 let cors = require('cors');
 let bodyParser = require('body-parser');
-let app = express();
 let appConstants = require('./config').appConstants;
-let routes = require('./app/routes');
+
 
 // -------------------- use cors globaly --------------------
 app.use(cors());
@@ -30,17 +41,20 @@ app.use(bodyParser.urlencoded({
 //     console.log('Error! Elastic cluster is down.', error);
 // });
 // Define App Routes
-app.get('/', (req, res)=> {
+app.get('/', (req, res) => {
     res.status(200).send('Server is up and running')
 });
-app.use('/v1', routes());
+app.use('/v1', routes);
+// app.use('/v1/socket', socketgame());
+
+
 // Start application
-app.all('*', (req, res)=> {
+app.all('*', (req, res) => {
     res.status(404).send('NOT FOUND')
 });
 
 let PORT = process.env.PORT || appConstants.port;
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     // eslint-disable-next-line no-console 
     console.log(`Connection established on Port: ${PORT}`);
 });
