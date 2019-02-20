@@ -292,7 +292,7 @@ module.exports = function users(io) {
         })
     });
 
-    // ****************** update user ****************** */
+    // ****************** update user ******************* */
     api.post('/:lang/update_user', upload.fields([{
         name: 'user_profile_pic'
     }]), async (req, res) => {
