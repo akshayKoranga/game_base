@@ -293,7 +293,7 @@ module.exports = function users(io) {
     });
 
     // ****************** update user ****************** */
-    api.put('/:lang/update_user', upload.fields([{
+    api.post('/:lang/update_user', upload.fields([{
         name: 'user_profile_pic'
     }]), async (req, res) => {
         return userAuth.updateUser(req).then(data => {
