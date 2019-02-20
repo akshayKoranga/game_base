@@ -4,11 +4,13 @@
   let sequelize = require('../../db');
   let _ = require('underscore');
 
-  //const sequelize = require('../../DB/db_sequelize.js');
-
 
   // User Table columns
   let userParams = [{
+          key: 'user_unique_id',
+          required: true,
+          default: ''
+      }, {
           key: 'user_first_name',
           required: true,
           default: ''
@@ -19,7 +21,22 @@
           default: ''
       },
       {
-          key: 'user_phone_no',
+          key: 'user_achievement',
+          required: false,
+          default: 0
+      },
+      {
+          key: 'user_life',
+          required: false,
+          default: 3
+      },
+      {
+          key: 'user_sad_face',
+          required: false,
+          default: ''
+      },
+      {
+          key: 'user_happy_face',
           required: false,
           default: ''
       },
@@ -30,12 +47,12 @@
       },
       {
           key: 'user_social_sign_type',
-          required: true,
+          required: false,
           default: 'facebook'
       },
       {
           key: 'user_social_sign_id',
-          required: true,
+          required: false,
           default: ''
       },
       {
@@ -123,15 +140,20 @@
       //     defaultValue: sequelize.literal('CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)'),
       // },
       user_first_name: Sequelize.STRING,
+      user_unique_id: Sequelize.STRING,
       user_last_name: Sequelize.STRING,
       user_lat: Sequelize.DOUBLE,
       user_long: Sequelize.DOUBLE,
       user_timezone: Sequelize.STRING,
       user_social_sign_type: Sequelize.INTEGER,
-      user_social_sign_id: Sequelize.ENUM('facebook','device_id'),
+      user_social_sign_id: Sequelize.ENUM('facebook', 'device_id'),
       user_device_type: Sequelize.ENUM('iOS', 'Android', 'Web'),
       user_device_token: Sequelize.STRING,
       user_profile_pic: Sequelize.STRING,
+      user_achievement: Sequelize.INTEGER,
+      user_life: Sequelize.INTEGER,
+      user_sad_face: Sequelize.STRING,
+      user_happy_face: Sequelize.STRING,
       user_status: Sequelize.INTEGER,
       user_is_deleted: Sequelize.SMALLINT,
   }, {

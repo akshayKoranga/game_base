@@ -7,7 +7,7 @@ module.exports = (io) => {
 
     // let config = require('../config');  // database connection
     router.use('/user', users(io));
-    router.use('/game', game());
+    router.use('/game', game(io));
 
     return router;
 };

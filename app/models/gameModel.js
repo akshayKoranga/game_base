@@ -17,12 +17,12 @@ let gameParams = [{
     },
     {
         key: 'game_user_won',
-        required: true,
+        required: false,
         default: 0
     },
     {
         key: 'game_user_lost',
-        required: true,
+        required: false,
         default: 0
     },
     {
@@ -66,10 +66,10 @@ function gameSchema() {
         //     type: Sequelize.DATE(3),
         //     defaultValue: sequelize.literal('CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)'),
         // },
-        game_user_by: Sequelize.INTEGER,
-        game_user_with: Sequelize.INTEGER,
-        game_user_won: Sequelize.INTEGER,
-        game_user_lost: Sequelize.INTEGER,
+        game_user_by: Sequelize.STRING,
+        game_user_with: Sequelize.STRING,
+        game_user_won: Sequelize.STRING,
+        game_user_lost: Sequelize.STRING,
         game_status: Sequelize.TINYINT,
     }, {
         timestamps: false,

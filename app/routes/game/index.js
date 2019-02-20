@@ -1,6 +1,6 @@
 let express = require('express');
 
-module.exports = function users() {
+module.exports = function users(io) {
 
     let api = express.Router();
 
@@ -11,7 +11,7 @@ module.exports = function users() {
 
 
     // ****************** Insert game ****************** */
-    api.post('/:lang/add_game', async (req, res) => {
+    api.put('/:lang/add_game', async (req, res) => {
         return gameController.addGame(req).then(data => {
             return res.json(data);
         }).catch(err => {
@@ -30,7 +30,7 @@ module.exports = function users() {
     });
 
     // ****************** update game ****************** */
-    api.post('/:lang/update_game', async (req, res) => {
+    api.put('/:lang/update_game', async (req, res) => {
         return gameController.updateGame(req).then(data => {
             return res.json(data);
         }).catch(err => {
