@@ -9,30 +9,30 @@ module.exports = function game(io) {
     // -----------------------define all dependencies -----------------
 
     io.on('connection', (socket) => {
+        console.log('SerVer CONNECTED')
         socket.on('addUser', (userID) => {
             console.log(userID, 'userID');
             socketUsers[userID] = socket;
+            console.log(socketUsers)
         });
         //==============send challnges ===========
-        socket.on('sendChallange', (gameReq) => {
-            let userSocket = socketUsers[userID];
-            let gameAdd = JSON.parse(gameReq);
-            console.log(gameReq, 'gameReq');
+        socket.on('sendChallenge', (gameAdd) => {
+            console.log(gameAdd, 'gameReq');
             let message = {
                 game_user_by: gameAdd.game_user_by,
                 game_user_with: gameAdd.game_user_with,
                 meassge: 'user_first_name' + 'challange you to play game'
             }
-            // ack(gameAdd);
+            let userSocket = socketUsers[gameAdd.game_user_by];
             userSocket.emit('Msg', message);
             let sendReq = {};
             sendReq.body = message
             gameController.addGame(sendReq);
         });
-        //==============send challnges ===========
+        //==============send Challenge ===========
 
-        //============== accept challnges ===========
-        socket.on('acceptChallange', (gameReq, ack) => {
+        //============== accept Challenge ===========
+        socket.on('acceptChallange', (gameReq) => {
             let userSocket = socketUsers[userID];
 
             var message = {
@@ -44,7 +44,7 @@ module.exports = function game(io) {
                 akn(message)
             })
         });
-        //============== accept challnges ===========
+        //============== accept Challenge ===========
     });
 
 
@@ -76,13 +76,13 @@ module.exports = function game(io) {
     });
 
     // ****************** update game ****************** */
-    api.put('/:lang/update_game', async (req, res) => {
-        return gameController.updateGame(req, io).then(data => {
-            return res.json(data);
-        }).catch(err => {
-            return res.json(err);
-        })
-    });
+    // api.put('/:lang/update_game', async (req, res) => {
+    //     return gameController.updateGame(req, io).then(data => {
+    //         return res.json(data);
+    //     }).catch(err => {
+    //         return res.json(err);
+    //     })
+    // });
 
     // ****************** Get single game ****************** */
     api.get('/:lang/single_game', async (req, res) => {
