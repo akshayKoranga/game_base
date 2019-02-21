@@ -13,7 +13,7 @@ module.exports = function game(io) {
         socket.on('addUser', (userID) => {
             console.log(userID, 'userID');
             socketUsers[userID] = socket;
-            console.log(socketUsers)
+            //console.log(socketUsers)
         });
         //==============send challnges ===========
         socket.on('sendChallenge', (gameAdd) => {
@@ -25,8 +25,10 @@ module.exports = function game(io) {
             }
             let userSocket = socketUsers[gameAdd.game_user_by];
             userSocket.emit('Msg', message);
-            let sendReq = {};
-            sendReq.body = message
+            let sendReq = {}
+            sendReq.params = {};
+            sendReq.body = message;
+            sendReq.params.lang = 'en';
             gameController.addGame(sendReq);
         });
         //==============send Challenge ===========

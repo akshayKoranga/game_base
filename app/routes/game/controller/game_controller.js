@@ -30,7 +30,7 @@ function addGame(req) {
             if (gameModel.gameValidations.validategame(body) === 1) {
                 let statusCode = new constants.response().PARAMETER_MISSING;
                 resolve(constants.response.sendSuccess('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
-            } else {
+            } else { 
                 // Parse req  body
                 let gameDetails = request.parseRequestBody(body, gameModel.gameParams);
                 // -------- check user exist ------
@@ -48,6 +48,7 @@ function addGame(req) {
                             return reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                         });
                     } else {
+                        let statusCode = new constants.response().NOT_FOUND;
                         return resolve(constants.response.sendSuccess('INVAILD_USER_CRUD', statusCode, req.params.lang));
 
                     }
@@ -69,7 +70,7 @@ function addGame(req) {
 function updateGame(req) {
     try {
         let game_id = req.body.game_id ? req.body.game_id : '';
-
+        console.log(req.params.lang);process.exit()
         // Check mandatory params 
         return new Promise((resolve, reject) => {
             if (game_id.trim() == '') {
