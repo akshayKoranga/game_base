@@ -10,10 +10,11 @@ module.exports = function game(io) {
 
     io.on('connection', (socket) => {
         socket.on('addUser', (userID) => {
+            console.log(userID, 'userID');
             socketUsers[userID] = socket;
         });
         //==============send challnges ===========
-        socket.on('sendChallange', (gameReq, ack) => {
+        socket.on('sendChallange', (gameReq) => {
             let userSocket = socketUsers[userID];
             let gameAdd = JSON.parse(gameReq);
             console.log(gameReq, 'gameReq');
@@ -22,8 +23,8 @@ module.exports = function game(io) {
                 game_user_with: gameAdd.game_user_with,
                 meassge: 'user_first_name' + 'challange you to play game'
             }
+            // ack(gameAdd);
             userSocket.emit('Msg', message);
-            ack(gameAdd);
             let sendReq = {};
             sendReq.body = message
             gameController.addGame(sendReq);
@@ -31,7 +32,7 @@ module.exports = function game(io) {
         //==============send challnges ===========
 
         //============== accept challnges ===========
-        socket.on('acceptChallange', (gameAdded, akn) => {
+        socket.on('acceptChallange', (gameReq, ack) => {
             let userSocket = socketUsers[userID];
 
             var message = {
