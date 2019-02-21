@@ -30,7 +30,7 @@ function addGame(req) {
             if (gameModel.gameValidations.validategame(body) === 1) {
                 let statusCode = new constants.response().PARAMETER_MISSING;
                 resolve(constants.response.sendSuccess('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
-            } else { 
+            } else {
                 // Parse req  body
                 let gameDetails = request.parseRequestBody(body, gameModel.gameParams);
                 // -------- check user exist ------
@@ -70,7 +70,6 @@ function addGame(req) {
 function updateGame(req) {
     try {
         let game_id = req.body.game_id ? req.body.game_id : '';
-        console.log(req.params.lang);process.exit()
         // Check mandatory params 
         return new Promise((resolve, reject) => {
             if (game_id.trim() == '') {
@@ -92,47 +91,8 @@ function updateGame(req) {
                             game_user_lost,
                             game_status,
                         };
-                        if (game_status == 2) {
-                            let userFindCondition = {
-                                user_unique_id: objectData.game_user_by
-                            };
-                            userService.findUser(userFindCondition).then(userData => {
-                                if (userData) {
-                                    // ================sockets events are here =========================
-                                    io.on('connection', (socket) => {
-                                        //==============send challnges ===========
-                                        socket.on('sendChallange', (gameAdded) => {
-                                            var message = {
-                                                user_data: userData,
-                                                meassge: 'Accepted your challange you to play a game'
-                                            }
-                                            userSocket.emit('Msg', message);
-                                        });
-                                    });
-                                    //==============send challnges ===========
-                                } else {
-                                    console.log('INVAILD_USER_CRUD')
-
-                                }
-                            }).catch(function (err) {
-                                console.log(err);
-
-                            });
-                        }
                         gameService.updateGame(updateData, condition).then(objectData => {
                             gameService.findGame(condition).then(UpdatedData => {
-                                // ================sockets events are here =========================
-                                io.on('connection', (socket) => {
-                                    //==============send challnges ===========
-                                    socket.on('acceptChallange', (UpdatedData) => {
-                                        Message.findById(msgID, (err, message) => {
-                                            if (err) {} else {
-                                                var userSocket = socketUsers[userID];
-                                            }
-                                        });
-                                    });
-                                });
-                                //==============send challnges ===========
                                 resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', UpdatedData, req.params.lang));
                                 //-------------- Not found or bad req
                             }).catch(err => {
@@ -250,7 +210,6 @@ function userGame(req) {
                                     element.game_with = user_with[0];
                                     gameNewArray.push(element)
                                 }
-
                                 resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', gameNewArray, req.params.lang));
                             } else {
                                 let statusCode = new constants.response().NOT_FOUND;
@@ -261,8 +220,6 @@ function userGame(req) {
                             let statusCode = new constants.response().SERVER_ERROR;
                             reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                         });
-
-                        //  resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', objectData, req.params.lang));
                     } else {
                         let statusCode = new constants.response().NOT_FOUND;
                         resolve(constants.response.sendSuccess('INVAILD_USER_CRUD', statusCode, req.params.lang));
@@ -280,52 +237,6 @@ function userGame(req) {
         return (constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
     }
 }
-
-
-// ================sockets events are here =========================
-// io.on('connection', (socket) => {
-
-//     //==============read meassges ===========
-
-//     socket.on('sendChallange', (game_user_by, game_user_with) => {
-//         Message.findById(msgID, (err, message) => {
-//             if (err) {} else {
-//                 var userSocket = socketUsers[userID];
-//                 if (message.status === 2) {
-//                     if (userSocket !== undefined) {
-//                         userSocket.emit('Msg', message);
-//                     }
-//                 } else {
-//                     if (message.sender === userID) {
-//                         if (userSocket !== undefined) {
-//                             userSocket.emit('Msg', message);
-//                         }
-//                     } else {
-//                         message.status = 2;
-//                         message.save(err => {
-//                             if (err) {} else {
-
-//                                 Chat.findById(chatID, (err, chat) => {
-//                                     if (err) {
-//                                         console.log('error in msgRead3', err);
-//                                     } else {
-//                                         chat.users.forEach(user => {
-//                                             var userSockett = socketUsers[user];
-//                                             if (userSockett !== undefined) {
-//                                                 userSockett.emit('Msg', message);
-//                                             }
-//                                         });
-//                                     }
-//                                 });
-//                             }
-//                         });
-//                     }
-//                 }
-//             }
-//         });
-//     });
-
-// });
 
 
 module.exports = {
