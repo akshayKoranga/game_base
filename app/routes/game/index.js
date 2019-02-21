@@ -24,26 +24,32 @@ module.exports = function game(io) {
                 meassge: 'user_first_name' + 'challange you to play game'
             }
             let userSocket = socketUsers[gameAdd.game_user_by];
-            userSocket.emit('Msg', message);
             let sendReq = {}
             sendReq.params = {};
             sendReq.body = message;
             sendReq.params.lang = 'en';
-            gameController.addGame(sendReq);
+            gameController.addGame(sendReq).then(data => {
+                userSocket.emit('Msg', data)
+            }).catch(err => {
+                userSocket.emit('Msg', data)
+            })
+
         });
         //==============send Challenge ===========
 
         //============== accept Challenge ===========
-        socket.on('acceptChallange', (gameReq) => {
+        socket.on('acceptChallange', (status) => {
             let userSocket = socketUsers[userID];
 
-            var message = {
-                user_id: 'gameAdded.user_id',
-                user_first_name: 'gameAdded.user_first_name',
-                meassge: 'user_first_name' + 'challange you to play game'
+            var updateObj = {
+                game_status: status,
             }
             userSocket.emit('Msg', message).then(data => {
-                akn(message)
+                let sendReq = {}
+                sendReq.params = {};
+                sendReq.body = updateObj;
+                sendReq.params.lang = 'en';
+                gameController.updateGame(sendReq);
             })
         });
         //============== accept Challenge ===========
