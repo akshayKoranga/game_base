@@ -13,7 +13,7 @@ module.exports = function game(io) {
             socketUsers[userID] = socket;
         });
         //==============send challnges ===========
-        socket.on('sendChallange', (gameReq) => {
+        socket.on('sendChallange', (gameReq, ack) => {
             let userSocket = socketUsers[userID];
             let gameAdd = JSON.parse(gameReq);
             console.log(gameReq, 'gameReq');
