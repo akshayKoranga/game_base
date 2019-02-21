@@ -1,6 +1,6 @@
 let express = require('express');
 
-module.exports = function users(io) {
+module.exports = function game(io) {
 
     let api = express.Router();
 
@@ -13,7 +13,25 @@ module.exports = function users(io) {
             socketUsers[userID] = socket;
         });
         //==============send challnges ===========
-        socket.on('sendChallange', (gameAdded) => {
+        socket.on('sendChallange', (gameAdd) => {
+            let userSocket = socketUsers[userID];
+            let gameAdd = JSON.parse(gameAdd);
+            console.log(obj.name);
+            process.exit()
+            let message = {
+                game_user_by: gameAdd.game_user_by,
+                game_user_with: gameAdd.game_user_with,
+                meassge: 'user_first_name' + 'challange you to play game'
+            }
+            userSocket.emit('Msg', message);
+            let sendReq = {};
+            sendReq.body = message
+            gameController.addGame(sendReq);
+        });
+        //==============send challnges ===========
+
+        //============== accept challnges ===========
+        socket.on('acceptChallange', (gameAdded) => {
             let userSocket = socketUsers[userID];
 
             var message = {
@@ -23,13 +41,13 @@ module.exports = function users(io) {
             }
             userSocket.emit('Msg', message);
         });
+        //============== accept challnges ===========
     });
-    //==============send challnges ===========
 
 
     // ****************** Insert game ****************** */
-    api.put('/:lang/add_game', async (req, res, io) => {
-        return gameController.addGame(req, io).then(data => {
+    api.put('/:lang/add_game', async (req, res) => {
+        return gameController.addGame(req).then(data => {
             return res.json(data);
         }).catch(err => {
             return res.json(err);
@@ -38,7 +56,7 @@ module.exports = function users(io) {
 
 
     api.put('/:lang/update_game', async (req, res) => {
-        return gameController.updateGame(req, io).then(data => {
+        return gameController.updateGame(req).then(data => {
             return res.json(data);
         }).catch(err => {
             return res.json(err);

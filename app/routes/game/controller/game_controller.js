@@ -38,8 +38,6 @@ function addGame(req) {
                     user_unique_id: gameDetails.game_user_with
                 };
 
-                var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
-
                 userService.findUser(userFindCondition).then(userData => {
                     if (userData) {
                         gameService.addGame(gameDetails).then(gameAdded => {
