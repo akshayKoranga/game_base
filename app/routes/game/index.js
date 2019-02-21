@@ -13,9 +13,9 @@ module.exports = function game(io) {
             socketUsers[userID] = socket;
         });
         //==============send challnges ===========
-        socket.on('sendChallange', (gameAdd) => {
+        socket.on('sendChallange', (gameReq) => {
             let userSocket = socketUsers[userID];
-            let gameAdd = JSON.parse(gameAdd);
+            let gameAdd = JSON.parse(gameReq);
             console.log(obj.name);
             process.exit()
             let message = {
