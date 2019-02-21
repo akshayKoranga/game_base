@@ -31,7 +31,7 @@ module.exports = function game(io) {
             gameController.addGame(sendReq).then(data => {
                 userSocket.emit('Msg', data)
             }).catch(err => {
-                userSocket.emit('Msg', data)
+                userSocket.emit('Msg', err)
             })
 
         });
