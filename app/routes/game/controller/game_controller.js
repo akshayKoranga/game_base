@@ -48,6 +48,7 @@ function addGame(req) {
                             return reject(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang));
                         });
                     } else {
+                        console.log('hehererer');
                         let statusCode = new constants.response().NOT_FOUND;
                         return resolve(constants.response.sendSuccess('INVAILD_USER_CRUD', statusCode, req.params.lang));
 
@@ -85,11 +86,13 @@ function updateGame(req) {
                         let game_user_won = req.body.game_user_won ? req.body.game_user_won : objectData.game_user_won;
                         let game_user_lost = req.body.game_user_lost ? req.body.game_user_lost : objectData.game_user_lost;
                         let game_status = req.body.game_status ? req.body.game_status : objectData.game_status;
-
+                        let game_bet = req.body.game_bet ? req.body.game_bet : objectData.game_bet;
+                        
                         let updateData = { // update query
                             game_user_won,
                             game_user_lost,
                             game_status,
+                            game_bet
                         };
                         gameService.updateGame(updateData, condition).then(objectData => {
                             gameService.findGame(condition).then(UpdatedData => {

@@ -13,7 +13,6 @@ module.exports = function game(io) {
         socket.on('addUser', (userID) => {
             console.log(userID, 'userID');
             socketUsers[userID] = socket;
-            //console.log(socketUsers)
         });
         //==============send challnges ===========
         socket.on('sendChallenge', (gameAdd) => {
@@ -43,17 +42,18 @@ module.exports = function game(io) {
             let userSocket = socketUsers[updateReq.game_user_with];
             var updateObj = {
                 game_status: updateReq.game_status,
-                game_id: updateReq.game_id
+                game_id: updateReq.game_id,
+                game_bet: updateReq.game_bet
             }
-                let sendReq = {}
-                sendReq.params = {};
-                sendReq.body = updateObj;
-                sendReq.params.lang = 'en';
-                gameController.updateGame(sendReq).then(data => {
-                    userSocket.emit('Msg', data)
-                }).catch(err => {
-                    userSocket.emit('Msg', err)
-                })
+            let sendReq = {}
+            sendReq.params = {};
+            sendReq.body = updateObj;
+            sendReq.params.lang = 'en';
+            gameController.updateGame(sendReq).then(data => {
+                userSocket.emit('UpdateMsg', data)
+            }).catch(err => {
+                userSocket.emit('UpdateMsg', err)
+            })
         });
         //============== accept Challenge ===========
     });

@@ -26,6 +26,11 @@ let gameParams = [{
         default: 0
     },
     {
+        key: 'game_bet',
+        required: false,
+        default: ''
+    },
+    {
         key: 'game_status',
         required: false,
         default: 1
@@ -69,6 +74,7 @@ function gameSchema() {
         game_user_with: Sequelize.STRING,
         game_user_won: Sequelize.STRING,
         game_user_lost: Sequelize.STRING,
+        game_bet: Sequelize.STRING,
         game_status: Sequelize.TINYINT,
     }, {
         timestamps: false,
