@@ -17,7 +17,7 @@ let localisedStrings = {
     'USER_SIGNUP_FAILURE': {
         en: 'Registration unsuccessful.',
         es: 'Spanish registration unsuccessful.'
-    },
+    },  
     'USER_LOGIN_SUCCESS': {
         en: 'Login successful.',
         es: 'Spanish login successful'

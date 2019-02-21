@@ -49,7 +49,6 @@ let gameValidations = {
 
 function gameSchema() {
 
-
     const tableName = 'selfie_fight_game';
 
     return gameSchema = sequelize.define('Game', {
