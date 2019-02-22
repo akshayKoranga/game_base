@@ -8,30 +8,34 @@ socket.on('connect', function (socket) {
    console.log('Connected!');
 });
 
-socket.emit('addUser', '102169757560871', function (data) { // args are sent in order to acknowledgement function
+socket.emit('addUser', '15fccf7e3w2429c5841f05a43e73525a1c719c8a8', function (data) { // args are sent in order to acknowledgement function
    console.log(data); // data will be 'tobi says woot'
 });
 
-socket.emit('addUser', '102136720897361', function (data) { // args are sent in order to acknowledgement function
+socket.emit('addUser', 'c054a901c6819de2fb589c9a81fa6e1d0cbe3fdb', function (data) { // args are sent in order to acknowledgement function
    console.log(data); // data will be 'tobi says woot'
 });
 
-// socket.emit('sendChallenge', {
-//    "game_user_by": "15fccf7e3w2429c5841f05a43e73525a1c719c8a8",
-//    "game_user_with": "c054a901c6819de2fb589c9a81fa6e1d0cbe3fdb",
-//    "game_bet": "game_bet"
-
-// })
-
-socket.emit('acceptChallenge', {
-   "game_status": "2",
-   "game_id": "42",
-   "game_user_with": "102169757560871",
-   "game_user_by": "102136720897361",
-   "game_bet": ""
+socket.emit('sendChallenge', {
+   "game_user_by": "15fccf7e3w2429c5841f05a43e73525a1c719c8a8",
+   "game_user_with": "c054a901c6819de2fb589c9a81fa6e1d0cbe3fdb",
+   "game_bet": "game_bet"
 
 })
 
+// socket.emit('acceptChallenge', {
+//    "game_status": "2",
+//    "game_id": "8",
+//    "game_user_with": "1",
+//    "game_user_by": "2",
+//    "game_bet": "ayyyyyyy "
+
+// })
+
 socket.on('UpdateMsg', function (data) {
+   console.log('data!', data);
+});
+
+socket.on('Msg', function (data) {
    console.log('data!', data);
 });

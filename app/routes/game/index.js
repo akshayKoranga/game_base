@@ -20,7 +20,8 @@ module.exports = function game(io) {
             let message = {
                 game_user_by: gameAdd.game_user_by,
                 game_user_with: gameAdd.game_user_with,
-                meassge: 'user_first_name' + 'challange you to play game'
+                meassge: 'user_first_name' + 'challange you to play game',
+                game_bet: gameAdd.game_bet
             }
             let userSocket = socketUsers[gameAdd.game_user_by];
             let userSocketTo = socketUsers[gameAdd.game_user_with];
