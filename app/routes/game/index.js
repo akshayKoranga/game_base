@@ -45,7 +45,7 @@ module.exports = function game(io) {
             //console.log(updateReq.game_user_with);process.exit()
             let userSocketTo = socketUsers[updateReq.game_user_with];
             let userSocket = socketUsers[updateReq.game_user_by];
-            // console.log(userSocketTo);process.exit()
+            console.log(updateReq);
             var updateObj = {
                 game_status: updateReq.game_status,
                 game_id: updateReq.game_id,
