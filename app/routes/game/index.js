@@ -23,14 +23,18 @@ module.exports = function game(io) {
                 meassge: 'user_first_name' + 'challange you to play game'
             }
             let userSocket = socketUsers[gameAdd.game_user_by];
+            let userSocketTo = socketUsers[gameAdd.game_user_with];
             let sendReq = {}
             sendReq.params = {};
             sendReq.body = message;
             sendReq.params.lang = 'en';
             gameController.addGame(sendReq).then(data => {
                 userSocket.emit('Msg', data)
+                userSocketTo.emit('Msg', data)
             }).catch(err => {
-                userSocket.emit('Msg', err)
+                userSocket.emit('Msg', err);
+                userSocketTo.emit('Msg', err)
+
             })
 
         });

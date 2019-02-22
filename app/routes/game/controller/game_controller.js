@@ -7,6 +7,7 @@ let {
     // ------- Middleware -------
     request,
     // ------- helper function -----
+    sendPush,
     // ------- Define models -------
     gameModel,
     // ------- Define services -------
@@ -81,26 +82,51 @@ function updateGame(req) {
                 let condition = {
                     game_id
                 };
+
+                //SELECT * FROM `selfie_fight_game` WHERE `game_user_lost` = '2' OR `game_user_won` = '2' ORDER BY `game_id` DESC LIMIT 1
+
                 gameService.findGame(condition).then(objectData => {
                     if (objectData) {
                         let game_user_won = req.body.game_user_won ? req.body.game_user_won : objectData.game_user_won;
                         let game_user_lost = req.body.game_user_lost ? req.body.game_user_lost : objectData.game_user_lost;
                         let game_status = req.body.game_status ? req.body.game_status : objectData.game_status;
                         let game_bet = req.body.game_bet ? req.body.game_bet : objectData.game_bet;
-                        
+
                         let updateData = { // update query
                             game_user_won,
                             game_user_lost,
                             game_status,
                             game_bet
                         };
-                        gameService.updateGame(updateData, condition).then(objectData => {
+                        gameService.updateGame(updateData).then(objectData => {
+
+                            // ----------- Update user ---------
+                            userService
+                            let gameCondition = {
+                                    [Op.or]: [{
+                                        game_user_by: game_user_lost
+                                    }, {
+                                        game_user_with: game_user_lost
+                                    }],
+                                },
+                                order = [
+                                    ['game_id', 'DESC']
+                                ];
+
+                            gameService.findGameByPaging(gameCondition, order, 1).then(gameData => {
+                                if(gameData){
+                                    console.log(gameData.game_user_lost);
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                            //----------------------------------
                             gameService.findGame(condition).then(UpdatedData => {
-                                resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', UpdatedData, req.params.lang));
+                                return resolve(constants.response.sendSuccess('DEFAULT_SUCCESS_MESSAGE', UpdatedData, req.params.lang));
                                 //-------------- Not found or bad req
                             }).catch(err => {
                                 let statusCode = new constants.response().BAD_REQUEST;
-                                resolve(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang))
+                                return resolve(constants.response.sendSuccess('DEFAULT_FAILURE_MESSAGE', statusCode, req.params.lang))
                             })
                             //--------------- Unable to update 
                         }).catch(function (err) {

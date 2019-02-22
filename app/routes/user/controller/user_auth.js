@@ -8,6 +8,7 @@ let {
     request,
     upload,
     // ------- helper function -------
+    sendPush,
     // ------- Define models -------
     userModel,
     // ------- Define services -------
@@ -143,7 +144,7 @@ function updateUser(req) {
 
                         let user_achievement = req.body.user_achievement ? req.body.user_achievement : objectData.user_achievement;
                         let user_life = req.body.user_life ? req.body.user_life : objectData.user_life;
-                       
+
 
                         // ------ for profile pic ----
                         if (!req.files.user_profile_pic) {

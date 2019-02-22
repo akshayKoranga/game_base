@@ -106,9 +106,6 @@ let gameService = {
     findGameByPaging: (condition, order, limit) => {
         return new Promise((resolve, reject) => {
             gameModel.gameSchema.findAll({
-                attributes: {
-                    exclude: ["game_password"]
-                },
                 where: condition,
                 order: order,
                 limit: limit,
