@@ -43,7 +43,8 @@ module.exports = function game(io) {
         //============== accept Challenge ===========
         socket.on('acceptChallange', (updateReq) => {
             //console.log(updateReq.game_user_with);process.exit()
-            let userSocket = socketUsers[updateReq.game_user_with];
+            let userSocketTo = socketUsers[updateReq.game_user_with];
+            let userSocket = socketUsers[updateReq.game_user_by];
             var updateObj = {
                 game_status: updateReq.game_status,
                 game_id: updateReq.game_id,
@@ -54,9 +55,11 @@ module.exports = function game(io) {
             sendReq.body = updateObj;
             sendReq.params.lang = 'en';
             gameController.updateGame(sendReq).then(data => {
-                userSocket.emit('UpdateMsg', data)
+                userSocket.emit('UpdateMsg', data);
+                userSocketTo.emit('UpdateMsgs', err);
             }).catch(err => {
-                userSocket.emit('UpdateMsg', err)
+                userSocket.emit('UpdateMsg', err);
+                userSocketTo.emit('UpdateMsg', err);
             })
         });
         //============== accept Challenge ===========
