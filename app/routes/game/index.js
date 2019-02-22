@@ -45,6 +45,7 @@ module.exports = function game(io) {
             //console.log(updateReq.game_user_with);process.exit()
             let userSocketTo = socketUsers[updateReq.game_user_with];
             let userSocket = socketUsers[updateReq.game_user_by];
+            // console.log(userSocketTo);process.exit()
             var updateObj = {
                 game_status: updateReq.game_status,
                 game_id: updateReq.game_id,
@@ -55,8 +56,9 @@ module.exports = function game(io) {
             sendReq.body = updateObj;
             sendReq.params.lang = 'en';
             gameController.updateGame(sendReq).then(data => {
+                console.log(data, 'dddddaaaaatttttttaaa')
                 userSocket.emit('UpdateMsg', data);
-                userSocketTo.emit('UpdateMsgs', err);
+                userSocketTo.emit('UpdateMsg', data);
             }).catch(err => {
                 userSocket.emit('UpdateMsg', err);
                 userSocketTo.emit('UpdateMsg', err);

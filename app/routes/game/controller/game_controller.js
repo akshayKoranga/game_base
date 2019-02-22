@@ -98,25 +98,59 @@ function updateGame(req) {
                             game_status,
                             game_bet
                         };
-                        gameService.updateGame(updateData).then(objectData => {
+                        gameService.updateGame(updateData, condition).then(objectData => {
 
                             // ----------- Update user ---------
-                            userService
                             let gameCondition = {
                                     [Op.or]: [{
                                         game_user_by: game_user_lost
                                     }, {
                                         game_user_with: game_user_lost
                                     }],
+                                    game_id: {
+                                        [Op.lt]: game_id // < 10
+                                    }
                                 },
                                 order = [
                                     ['game_id', 'DESC']
                                 ];
 
                             gameService.findGameByPaging(gameCondition, order, 1).then(gameData => {
-                                if(gameData){
-                                    console.log(gameData.game_user_lost);
+                                if (gameData[0]) {
+                                    if (gameData[0].game_user_lost == game_user_lost) {
+                                        // ------- updte user ------
+                                        let updateUserData = {
+                                                user_achievement: Sequelize.literal('user_achievement - 1'),
+                                            },
+                                            userUpdateCondition = {
+                                                user_unique_id: game_user_lost
+                                            };
+                                        userService.updateUser(updateUserData, userUpdateCondition).then(objectData => {}).catch(err => {
+                                            console.log(err);
+                                        })
+                                    }
+                                    // ------- updte user ------
+                                    let updateUserData = {
+                                            user_life: Sequelize.literal('user_life - 1')
+                                        },
+                                        userUpdateCondition = {
+                                            user_unique_id: game_user_lost
+                                        };
+                                    userService.updateUser(updateUserData, userUpdateCondition).then(objectData => {}).catch(err => {
+                                        console.log(err);
+                                    })
+
                                 }
+                                // ------- updte user ------
+                                let updateUserData = {
+                                        user_achievement: Sequelize.literal('user_achievement + 1')
+                                    },
+                                    userUpdateCondition = {
+                                        user_unique_id: game_user_won
+                                    };
+                                userService.updateUser(updateUserData, userUpdateCondition).then(objectData => {}).catch(err => {
+                                    console.log(err);
+                                })
                             }).catch(err => {
                                 console.log(err);
                             })
