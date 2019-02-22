@@ -41,7 +41,7 @@ module.exports = function game(io) {
         //==============send Challenge ===========
 
         //============== accept Challenge ===========
-        socket.on('acceptChallange', (updateReq) => {
+        socket.on('acceptChallenge', (updateReq) => {
             //console.log(updateReq.game_user_with);process.exit()
             let userSocketTo = socketUsers[updateReq.game_user_with];
             let userSocket = socketUsers[updateReq.game_user_by];

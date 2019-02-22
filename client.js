@@ -23,7 +23,7 @@ socket.emit('addUser', '1', function (data) { // args are sent in order to ackno
 
 // })
 
-socket.emit('acceptChallange', {
+socket.emit('acceptChallenge', {
    "game_status": "2",
    "game_id": "8",
    "game_user_with": "1",
