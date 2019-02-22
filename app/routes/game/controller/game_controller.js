@@ -82,7 +82,7 @@ function updateGame(req) {
                 let condition = {
                     game_id
                 };
-
+                console.log('yoyoyoyoyoyoyoyoyoyoyoy6o')
                 //SELECT * FROM `selfie_fight_game` WHERE `game_user_lost` = '2' OR `game_user_won` = '2' ORDER BY `game_id` DESC LIMIT 1
 
                 gameService.findGame(condition).then(objectData => {
