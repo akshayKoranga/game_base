@@ -60,6 +60,7 @@ module.exports = function game(io) {
                 userSocket.emit('UpdateMsg', data);
                 userSocketTo.emit('UpdateMsg', data);
             }).catch(err => {
+                console.log(err, 'this is errrrr');
                 userSocket.emit('UpdateMsg', err);
                 userSocketTo.emit('UpdateMsg', err);
             })
