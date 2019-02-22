@@ -74,7 +74,7 @@ function updateGame(req) {
         let game_id = req.body.game_id ? req.body.game_id : '';
         // Check mandatory params 
         return new Promise((resolve, reject) => {
-            if (game_id.trim() == '') {
+            if (game_id == '' || game_id) {
                 let statusCode = new constants.response().PARAMETER_MISSING;
                 resolve(constants.response.sendSuccess('MANDATORY_PARAMETER_MISSING', statusCode, req.params.lang));
             } else {
