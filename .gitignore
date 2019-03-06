@@ -1,6 +1,5 @@
 node_modules/
-uploads/
-config/*
+uploads/*
 .env
 package-lock.json
 cache/
