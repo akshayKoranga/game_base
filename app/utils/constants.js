@@ -209,15 +209,15 @@ class localiseStrings {
 
 
 let s3 = new AWS.S3({
-    accessKeyId: 'AKIAIRQ6IPGEKJMAR6BQ',
-    secretAccessKey: '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', 
-    Bucket: 'swift-spar-local/selfie_fight',
-}); // define s3 var with new AWS.S3 object
+    accessKeyId: '',
+    secretAccessKey: '', 
+    Bucket: 't',
+}); 
 
 let S3CONSTANT = {
-    accessKeyId: 'AKIAIRQ6IPGEKJMAR6BQ', //IAM_USER_KEY,
-    secretAccessKey: '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', //IAM_USER_SECRET,
-    Bucket: 'swift-spar-local/selfie_fight', //BUCKET_NAME,
+    accessKeyId: '', 
+    secretAccessKey: '', 
+    Bucket: '', 
 };
 
 
