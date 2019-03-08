@@ -8,9 +8,9 @@ let multerS3 = require('multer-s3');
 //
 //****************************************************************************************************************** */
 
-const BUCKET_NAME = 'swift-spar-local'; // bucket name of s3
-const IAM_USER_KEY = 'AKIAIRQ6IPGEKJMAR6BQ'; //  Rajat@emilence s3 key Access id key
-const IAM_USER_SECRET = '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'; // Secret Key
+const BUCKET_NAME = ''; 
+const IAM_USER_KEY = ''; 
+const IAM_USER_SECRET = ''; 
 
 
 let s3 = new AWS.S3({
